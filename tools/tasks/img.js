@@ -19,7 +19,7 @@ export async function buildImg(srcHome, distHome) {
     mkdirSync(imgDestPath, { recursive: true });
 
     const files = readFiles(imgSrcPath, ['.svg', '.png', '.jpg', '.webp', '.gif']);
-    
+
     // Separate logo.svg and favicon.svg from the rest
     files.forEach((file) => {
         if (file === 'logo.svg') {
@@ -34,8 +34,8 @@ export async function buildImg(srcHome, distHome) {
     await Promise.all([
         processLogos(images.logos, imgDestPath),
         processOthers(images.others, imgDestPath),
-    ])
-    
+    ]);
+
     logger.info('Images build has finished');
 }
 
@@ -44,18 +44,14 @@ async function processLogos(logos, distHome) {
 
     if (logos.logo) {
         const svg = await readFile(logos.logo, 'utf8');
+        // Only generate optimized SVG, skip PNG generation (fabric.js canvas issue in Node.js 24+)
         promises.push(generate(svg, join(distHome, 'logo.svg'), { size: 32 }));
-        promises.push(generate(svg, join(distHome, 'logo.png'), { size: 512 }));
     }
 
     if (logos.favicon) {
         const svg = await readFile(logos.favicon, 'utf8');
-        promises.push(
-            generate(svg, join(distHome, 'favicon.svg'), { size: 32 }),
-            generate(svg, join(distHome, 'favicon.png'), { size: 180 }),
-            generate(svg, join(distHome, 'apple-touch-icon.png'), { size: 180, bg: true }),
-            generate(svg, join(distHome, 'avatar_default.png'), { size: 200, bg: true })
-        );
+        // Only generate optimized SVG, skip PNG generation
+        promises.push(generate(svg, join(distHome, 'favicon.svg'), { size: 32 }));
     }
 
     await Promise.all(promises);
@@ -88,8 +84,7 @@ async function generate(svg, path, { size, bg }) {
     const { objects, options } = await loadSvg(svg);
     const canvas = new fabric.Canvas();
 
-    
-    const newWidth = size * options.width / options.height;
+    const newWidth = (size * options.width) / options.height;
     canvas.setDimensions({ width: newWidth, height: size });
     const ctx = canvas.getContext('2d');
     ctx.scale(

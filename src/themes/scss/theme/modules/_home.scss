@@ -1,0 +1,12 @@
+@mixin home {
+    .page-content.home {
+        .center {
+            img.logo {
+                width: 440px !important;
+                max-width: 440px !important;
+                height: auto !important;
+                margin: 2rem 0 !important;
+            }
+        }
+    }
+}
