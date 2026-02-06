@@ -1,0 +1,81 @@
+// Sonokai Theme (Shusia variant)
+// Based on https://github.com/sainnhe/sonokai
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+$is-dark: true;
+$brand: #7accd7; // Sonokai Blue/Cyan
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(#4b4c50),
+    // Sonokai (brighter for heatmap visibility)
+    text: #e3e1e4,
+    // Sonokai Foreground
+    subtle: #848089,
+    // Sonokai Grey
+    palette:
+        (
+            'red': c.variants(#f85e84),
+            // Sonokai Red
+            'orange': c.variants(#ef9062),
+            // Sonokai Orange
+            'yellow': c.variants(#e5c463),
+            // Sonokai Yellow
+            'olive': c.variants(#9ecd6f),
+            // Sonokai Green (olive-ish)
+            'green': c.variants(#9ecd6f),
+            // Sonokai Green
+            'teal': c.variants(#7accd7),
+            // Sonokai Blue
+            'blue': c.variants(#7accd7),
+            // Sonokai Blue
+            'violet': c.variants(#ab9df2),
+            // Sonokai Purple
+            'purple': c.variants(#ab9df2),
+            // Sonokai Purple
+            'pink': c.variants(#f85e84),
+            // Sonokai Red/Pink
+            'brown': c.variants(#ef9062),
+            // Sonokai Orange
+            'black': c.variants(#1a181a),
+            // Darker background
+            'white': c.variants(#e3e1e4),
+            // Sonokai Foreground
+        ),
+    elevation: (
+        '1': #2d2a2e,
+        // Sonokai Background
+        '2': #323035,
+        '3': #37383d,
+        // Sonokai Selection
+        '4': #3d3e43,
+        '5': #444549,
+        '6': #4b4c50,
+        '7': #5a5b5f,
+        '8': #6a6b6f,
+        '9': #7a7b7f,
+        '10': #848089,
+        // Sonokai Grey
+        '11': #9a969f,
+        '12': #b0acb9,
+    ),
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);

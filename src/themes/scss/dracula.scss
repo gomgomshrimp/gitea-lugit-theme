@@ -1,0 +1,81 @@
+// Dracula Theme
+// Official colors from https://draculatheme.com/
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+$is-dark: true;
+$brand: #bd93f9; // Dracula Purple
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(#44475a),
+    // Dracula Current Line
+    text: #f8f8f2,
+    // Dracula Foreground
+    subtle: #6272a4,
+    // Dracula Comment
+    palette:
+        (
+            'red': c.variants(#ff5555),
+            // Dracula Red
+            'orange': c.variants(#ffb86c),
+            // Dracula Orange
+            'yellow': c.variants(#f1fa8c),
+            // Dracula Yellow
+            'olive': c.variants(#b8d978),
+            'green': c.variants(#50fa7b),
+            // Dracula Green
+            'teal': c.variants(#8be9fd),
+            // Dracula Cyan
+            'blue': c.variants(#6272a4),
+            // Dracula Comment (blue-ish)
+            'violet': c.variants(#bd93f9),
+            // Dracula Purple
+            'purple': c.variants(#bd93f9),
+            // Dracula Purple
+            'pink': c.variants(#ff79c6),
+            // Dracula Pink
+            'brown': c.variants(#ffb86c),
+            // Use orange
+            'black': c.variants(#21222c),
+            // Darker than background
+            'white': c.variants(#f8f8f2),
+            // Dracula Foreground
+        ),
+    elevation: (
+        '1': #21222c,
+        // Darkest
+        '2': #282a36,
+        // Dracula Background
+        '3': #2d303d,
+        '4': #343746,
+        '5': #3b3f51,
+        '6': #44475a,
+        // Dracula Current Line
+        '7': #515567,
+        '8': #5f6374,
+        '9': #6272a4,
+        // Dracula Comment
+        '10': #7384b0,
+        '11': #8595bc,
+        '12': #a7b4cf,
+    ),
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);

@@ -1,0 +1,82 @@
+// Tokyo Night Theme
+// Based on https://github.com/enkia/tokyo-night-vscode-theme
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+$is-dark: true;
+$brand: #7aa2f7; // Tokyo Night Blue
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(#414868),
+    // Tokyo Night Selection (brighter for heatmap visibility)
+    text: #a9b1d6,
+    // Tokyo Night Foreground
+    subtle: #565f89,
+    // Tokyo Night Comments
+    palette:
+        (
+            'red': c.variants(#f7768e),
+            // Tokyo Night Red
+            'orange': c.variants(#ff9e64),
+            // Tokyo Night Orange
+            'yellow': c.variants(#e0af68),
+            // Tokyo Night Yellow
+            'olive': c.variants(#9ece6a),
+            // Tokyo Night Green
+            'green': c.variants(#73daca),
+            // Tokyo Night Teal-Green
+            'teal': c.variants(#2ac3de),
+            // Tokyo Night Cyan
+            'blue': c.variants(#7aa2f7),
+            // Tokyo Night Blue
+            'violet': c.variants(#bb9af7),
+            // Tokyo Night Purple
+            'purple': c.variants(#bb9af7),
+            // Tokyo Night Purple
+            'pink': c.variants(#f7768e),
+            // Tokyo Night Pink/Red
+            'brown': c.variants(#ff9e64),
+            // Tokyo Night Orange
+            'black': c.variants(#16161e),
+            // Darker than background
+            'white': c.variants(#c0caf5),
+            // Tokyo Night Bright Foreground
+        ),
+    elevation: (
+        '1': #1a1b26,
+        // Tokyo Night Background
+        '2': #1e1f2b,
+        '3': #24283b,
+        // Tokyo Night Background Dark
+        '4': #292e42,
+        '5': #2f3549,
+        '6': #363c50,
+        '7': #414868,
+        // Tokyo Night Selection
+        '8': #4c5575,
+        '9': #565f89,
+        // Tokyo Night Comments
+        '10': #6b759e,
+        '11': #7d88b0,
+        '12': #9099c0,
+    ),
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);

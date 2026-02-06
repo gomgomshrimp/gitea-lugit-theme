@@ -1,0 +1,85 @@
+// Solarized Light Theme
+// Official colors from https://ethanschoonover.com/solarized/
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+$is-dark: false;
+$brand: #268bd2; // Solarized Blue
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(#d5cfc0),
+    // Solarized (darker for heatmap visibility)
+    text: #657b83,
+    // Solarized Base00
+    subtle: #839496,
+    // Solarized Base0
+    palette:
+        (
+            'red': c.variants(#dc322f),
+            // Solarized Red
+            'orange': c.variants(#cb4b16),
+            // Solarized Orange
+            'yellow': c.variants(#b58900),
+            // Solarized Yellow
+            'olive': c.variants(#859900),
+            // Solarized Green (olive-ish)
+            'green': c.variants(#859900),
+            // Solarized Green
+            'teal': c.variants(#2aa198),
+            // Solarized Cyan
+            'blue': c.variants(#268bd2),
+            // Solarized Blue
+            'violet': c.variants(#6c71c4),
+            // Solarized Violet
+            'purple': c.variants(#d33682),
+            // Solarized Magenta
+            'pink': c.variants(#d33682),
+            // Solarized Magenta
+            'brown': c.variants(#cb4b16),
+            // Solarized Orange
+            'black': c.variants(#002b36),
+            // Solarized Base03
+            'white': c.variants(#fdf6e3),
+            // Solarized Base3
+        ),
+    elevation: (
+        '1': #fdf6e3,
+        // Solarized Base3 - Lightest
+        '2': #f8f1dc,
+        '3': #eee8d5,
+        // Solarized Base2
+        '4': #e4ddcc,
+        '5': #d5cfc0,
+        '6': #c5c0b3,
+        '7': #a8a397,
+        '8': #93a1a1,
+        // Solarized Base1
+        '9': #839496,
+        // Solarized Base0
+        '10': #657b83,
+        // Solarized Base00
+        '11': #586e75,
+        // Solarized Base01
+        '12': #073642,
+        // Solarized Base02
+    ),
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);

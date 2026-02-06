@@ -1,0 +1,82 @@
+// Night Owl Theme
+// Based on https://github.com/sdras/night-owl-vscode-theme
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+$is-dark: true;
+$brand: #82aaff; // Night Owl Blue
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(#1d3b53),
+    // Night Owl Selection (brighter for heatmap visibility)
+    text: #d6deeb,
+    // Night Owl Foreground
+    subtle: #637777,
+    // Night Owl Comments
+    palette:
+        (
+            'red': c.variants(#ef5350),
+            // Night Owl Red
+            'orange': c.variants(#f78c6c),
+            // Night Owl Orange
+            'yellow': c.variants(#ffeb95),
+            // Night Owl Yellow (Bright)
+            'olive': c.variants(#addb67),
+            // Night Owl Green
+            'green': c.variants(#22da6e),
+            // Night Owl Bright Green
+            'teal': c.variants(#7fdbca),
+            // Night Owl Teal/Cyan
+            'blue': c.variants(#82aaff),
+            // Night Owl Blue
+            'violet': c.variants(#c792ea),
+            // Night Owl Purple
+            'purple': c.variants(#c792ea),
+            // Night Owl Purple
+            'pink': c.variants(#ff869a),
+            // Night Owl Pink
+            'brown': c.variants(#f78c6c),
+            // Night Owl Orange
+            'black': c.variants(#010e17),
+            // Darker background
+            'white': c.variants(#d6deeb),
+            // Night Owl Foreground
+        ),
+    elevation: (
+        '1': #011627,
+        // Night Owl Background
+        '2': #021d32,
+        '3': #0b2942,
+        // Night Owl Highlight Line
+        '4': #0d3356,
+        '5': #1d3b53,
+        // Night Owl Selection
+        '6': #2d4b63,
+        '7': #3d5b73,
+        '8': #4d6b83,
+        '9': #5d7b93,
+        '10': #637777,
+        // Night Owl Comments
+        '11': #8090a0,
+        '12': #a0b0c0,
+    ),
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);
