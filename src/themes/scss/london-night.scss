@@ -1,0 +1,131 @@
+@use '@lucas-labs/lui-micro' as lui;
+@use './_utils/color-utils' as c;
+@use './theme' as theme;
+@use './vars' as vars;
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  LONDON NIGHT - 80s Neon City Theme                                     │
+// │  Inspired by London Boys "London Nights" (1988)                         │
+// │  Synthwave aesthetics: Neon pink, purple, cyan + orange accents         │
+// └─────────────────────────────────────────────────────────────────────────┘
+
+$is-dark: true;
+
+// Neon cyan as primary brand color
+$brand: #00e5ff;
+
+$colors: (
+    primary: c.variants($brand),
+    secondary: c.variants(hsl(270, 25%, 22%)),
+    // brighter for heatmap visibility
+    text: #e8e0f0,
+    // slightly purple-tinted white
+    subtle: hsl(280, 15%, 60%),
+    palette: (
+        'red': c.variants(#ff3366),
+        // neon red/pink
+        'orange': c.variants(#ff6b2b),
+        // neon orange (key accent!)
+        'yellow': c.variants(#ffea00),
+        // electric yellow
+        'olive': c.variants(#b8ff57),
+        'green': c.variants(#39ff14),
+        // neon green
+        'teal': c.variants(#00ffd5),
+        // neon teal
+        'blue': c.variants(#00e5ff),
+        // neon cyan
+        'violet': c.variants(#bf7fff),
+        // neon violet
+        'purple': c.variants(#9d4edd),
+        // neon purple
+        'pink': c.variants(#ff6ec7),
+        // hot pink
+        'brown': c.variants(#d4a574),
+        'black': c.variants(#0d0221),
+        // deep night
+        'white': c.variants(#e8e0f0),
+    ),
+    elevation: (
+        '1': hsl(270, 50%, 5%),
+        // slightly brighter base
+        '2': hsl(270, 45%, 7%),
+        '3': hsl(270, 40%, 10%),
+        '4': hsl(270, 35%, 13%),
+        '5': hsl(270, 30%, 16%),
+        '6': hsl(270, 25%, 19%),
+        '7': hsl(270, 20%, 28%),
+        '8': hsl(270, 18%, 38%),
+        '9': hsl(270, 15%, 48%),
+        '10': hsl(280, 12%, 62%),
+        '11': hsl(280, 10%, 76%),
+        '12': hsl(280, 8%, 89%),
+    ),
+    // Custom navbar colors for neon glow effect
+    navbar:
+        (
+            bg: hsl(270, 50%, 6%),
+            fg: #e8e0f0,
+            hover: hsl(270, 40%, 15%),
+        ),
+    // Orange accent for highlights
+    accent: #ff6b2b,
+);
+
+// init lui-micro, css-vars only (no reboot, no basic)
+@include lui.init(
+    $theme: (
+        colors: $colors,
+        variables: vars.$variables,
+    ),
+    $options: (
+        reboot: false,
+        basic: false,
+        fg-var-name: 'text',
+        bg-var-name: 'elevation/1',
+    )
+);
+
+@include theme.make-theme($is-dark);
+
+// ┌─────────────────────────────────────────────────────────────────────────┐
+// │  LONDON NIGHT - Custom Overrides                                        │
+// └─────────────────────────────────────────────────────────────────────────┘
+
+:root {
+    // Neon glow accent color (orange!)
+    --color-accent: #ff6b2b;
+    --color-small-accent: #ff6b2b;
+
+    // Override highlight with neon orange
+    --color-highlight-fg: #ff6b2b;
+    --color-highlight-bg: rgba(255, 107, 43, 0.25);
+
+    // Selection with neon pink
+    --color-selection-bg: rgba(255, 110, 199, 0.4);
+
+    // Git color - keep orange theme
+    --color-git: #ff6b2b;
+}
+
+// Neon selection effect
+::selection {
+    background-color: rgba(255, 110, 199, 0.4) !important;
+    color: #ffffff !important;
+}
+
+// Subtle neon glow on primary buttons
+.ui.primary.button {
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+
+    &:hover {
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+}
+
+// Orange accent for labels and badges when appropriate
+.ui.orange.label,
+.ui.orange.button {
+    background-color: #ff6b2b !important;
+    box-shadow: 0 0 8px rgba(255, 107, 43, 0.4);
+}
